@@ -62,9 +62,9 @@ const getTaskId=async(req,res)=>{
         const {id}=req.params;
         const findTask = await Task.findOne({_id : id});
             if(!findTask){
-                return res.status(400).send({
+                return res.status(404).send({
                     success:false,
-                    message:"task is not available for this id"
+                    message:`task is not available for this ${id}`
                 })
             }
             res.status(200).send({
@@ -87,13 +87,13 @@ const deleteById = async(req,res)=>{
     try{
         const {id}= req.params;
         const deletId= await Task.deleteOne({_id:id});
-        if(!deletId){
-            return res.status(400).send({
-                success:false,
-                message:`task is not available for this id ${id} `
-            })
-        }
-
+        if (deletId.deletedCount === 0) {
+            return res.status(404).send({
+              success: false,
+              message: `task is not available for this id ${id} `,
+            });
+          }
+       
         res.status(200).send({
             success:true,
             message:` Task is deleted for this id ${id} `
@@ -113,18 +113,26 @@ const putById = async (req, res) => {
   
     const { title,description } = req.body;
     if (!title || !description) {
-        return res.status(400).send({ message: 'Title and Description are required.' });
+        return res.status(400).send({ message: 'Title and Description are missing' });
       }
-      await Task.updateOne({ _id: id }, {
+     const answer= await Task.updateOne({ _id: id }, {
       $set: {
        title:title,
        description:description
       }
     })
 
+    if (answer.matchedCount === 0) {
+        return res.status(404).send({
+          success: false,
+          message: `No task found with this id ${id}`,
+        });
+      }
+
     try {
       const updateTask = await Task.findOne({ _id: id });
-  
+
+      
       res.status(200).send({
         success: true,
         data: updateTask,
