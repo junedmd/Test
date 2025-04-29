@@ -1,7 +1,7 @@
 import Task from "../module/task.js"
 import useparams from 'express';
 // Post API to create a task
-const PostTask = async (req,res)=>{
+const postTask = async (req,res)=>{
     const{title,description}=req.body;
     if (!title || !description ) {
         return res.status(400).send({
@@ -31,7 +31,7 @@ const PostTask = async (req,res)=>{
 };
 
 // Get API for Retrieve a list of all tasks. 
-const GetTask= async(req,res)=>{
+const getTask= async(req,res)=>{
 
     try{
         const loadData = await Task.find();
@@ -56,7 +56,7 @@ const GetTask= async(req,res)=>{
 
 // Get api for  Retrieve a specific task by ID. 
 
-const GetTaskId=async(req,res)=>{
+const getTaskId=async(req,res)=>{
     try{
 
         const {id}=req.params;
@@ -83,7 +83,7 @@ const GetTaskId=async(req,res)=>{
 
 // Delete a task by ID. 
 
-const DeleteId = async(req,res)=>{
+const deleteById = async(req,res)=>{
     try{
         const {id}= req.params;
         const deletId= await Task.deleteOne({_id:id});
@@ -94,7 +94,7 @@ const DeleteId = async(req,res)=>{
             })
         }
 
-        res.send({
+        res.status(200).send({
             success:true,
             message:` Task is deleted for this id ${id} `
         })
@@ -106,4 +106,37 @@ const DeleteId = async(req,res)=>{
     }
 };
 
- export { PostTask,GetTask ,GetTaskId,DeleteId} ;
+// Put api for updating task
+
+const putById = async (req, res) => {
+    const { id } = req.params;
+  
+    const { title,description } = req.body;
+    if (!title || !description) {
+        return res.status(400).send({ message: 'Title and Description are required.' });
+      }
+      await Task.updateOne({ _id: id }, {
+      $set: {
+       title:title,
+       description:description
+      }
+    })
+
+    try {
+      const updateTask = await Task.findOne({ _id: id });
+  
+      res.status(200).send({
+        success: true,
+        data: updateTask,
+        message: 'Update Successfully'
+      })
+    }
+    catch (err) {
+      res.status(500).send({
+        success: false,
+        err: err.message
+      })
+    }
+  
+  }
+ export { postTask,getTask ,getTaskId,deleteById,putById} ;
