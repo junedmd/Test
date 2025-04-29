@@ -1,4 +1,4 @@
-# Task Management API Report
+# Task Management API 
 
 ## 1. Introduction
 This project is a RESTful API for task management built using Node.js, Express.js, and MongoDB.
@@ -16,3 +16,9 @@ The `POST /tasks` endpoint allows task creation, while `GET /tasks/:id` fetches 
 ## 5. Testing and Validation
 The API was tested using Postman to verify each endpoint.
 
+## 6.Installation Instruction
+
+### Clone the Repository
+```Git bash
+git clone https://github.com/junedmd/Test.git
+cd test
