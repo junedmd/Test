@@ -81,4 +81,29 @@ const GetTaskId=async(req,res)=>{
     }
 };
 
- export { PostTask,GetTask ,GetTaskId} ;
+// Delete a task by ID. 
+
+const DeleteId = async(req,res)=>{
+    try{
+        const {id}= req.params;
+        const deletId= await Task.deleteOne({_id:id});
+        if(!deletId){
+            return res.status(400).send({
+                success:false,
+                message:`task is not available for this id ${id} `
+            })
+        }
+
+        res.send({
+            success:true,
+            message:` Task is deleted for this id ${id} `
+        })
+    }catch(e){
+        res.status(500).send({
+            success:false,
+            message:e.message
+        })
+    }
+};
+
+ export { PostTask,GetTask ,GetTaskId,DeleteId} ;
