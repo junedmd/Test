@@ -26,11 +26,11 @@ connectMongoDB();
 
 // Apis for Task
 
-app.post('/tasks',postTask);
-app.get('/tasks',getTask);
-app.get('/tasks/:id',getTaskId);
-app.delete('/tasks/:id',deleteById);
-app.put('/tasks/:id',putById)
+app.post('/api/tasks',postTask);
+app.get('/api/tasks',getTask);
+app.get('/api/tasks/:id',getTaskId);
+app.delete('/api/tasks/:id',deleteById);
+app.put('/api/tasks/:id',putById)
 
 app.listen(PORT,()=>{
     console.log("listening on the port 5000")
