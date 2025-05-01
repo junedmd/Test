@@ -19,6 +19,6 @@ The API was tested using Postman to verify each endpoint.
 ## 6.Installation Instruction
 
 ### Clone the Repository
-```Git bash
+``` Git bash
 git clone https://github.com/junedmd/Test.git
 cd test
