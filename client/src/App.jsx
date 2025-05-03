@@ -60,7 +60,7 @@ function App() {
 
         </div>
 
-        <div className='w-full mx-10 my-5 max-h-[480px] overflow-y-auto pr-2'>
+        <div className='w-full mx-10 my-5 pr-2 '>
            <input type="text" className='bg-white w-full mb-3 px-4 py-2 border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'  placeholder='Serach Your Task'  value={serach} onChange={(e)=>{setSearch(e.target.value)}}/>
        
 
