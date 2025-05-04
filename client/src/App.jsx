@@ -13,7 +13,7 @@ function App() {
   const Submit = async () => {
     // e.preventDefault();
     try {
-      const response = await axios.post("/api/tasks", {
+      const response = await axios.post("https://test-tb5n.onrender.com/api/tasks", {
         title: title,
         description: description
       })
@@ -31,7 +31,7 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const result = await axios.get("/api/tasks");
+      const result = await axios.get("https://test-tb5n.onrender.com/api/tasks");
       setData(result?.data.data);
       
     } catch (e) {
@@ -43,7 +43,7 @@ function App() {
 
   const btnDelete = async (id) => {
     try {
-      const res = await axios.delete(`/api/tasks/${id}`);
+      const res = await axios.delete(`https://test-tb5n.onrender.com/api/tasks/${id}`);
       if (res.data.success) {
         setData((prev) => prev.filter((task) => task._id !== id));
         alert(res.data.message)
