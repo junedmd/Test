@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://test-6-55uw.onrender.com',
         changeOrigin: true,
         secure: false,
       },
